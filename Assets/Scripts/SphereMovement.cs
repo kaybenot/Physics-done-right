@@ -6,45 +6,46 @@ using UnityEngine.InputSystem;
 
 public class SphereMovement : MonoBehaviour
 {
-    [Range(0f, 100f)] public float MaxSpeed = 10f;
-    [Range(0f, 100f)] public float MaxAcceleration = 10f;
-    [Range(0f, 1f)] public float Bounciness = 0.5f;
-    public Rect AllowedArea = new Rect(-5f, -5f, 10f, 10f);
-    
+    [SerializeField, Range(0f, 100f)] private float maxSpeed = 10f;
+    [SerializeField, Range(0f, 100f)] private float maxAcceleration = 10f;
+    [SerializeField, Range(0f, 10f)] private float jumpHeight = 5f;
+
     private Vector3 velocity;
     private Vector3 acceleration;
-    
-    private void FixedUpdate()
+    private Rigidbody body;
+    private bool onGround;
+
+    private void Awake()
     {
-        float maxSpeedChange = MaxAcceleration * Time.fixedDeltaTime;
+        body = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        onGround = false;
+        velocity = body.velocity;
+        float maxSpeedChange = maxAcceleration * Time.fixedDeltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, acceleration.x, maxSpeedChange);
         velocity.z = Mathf.MoveTowards(velocity.z, acceleration.z, maxSpeedChange);
-        Vector3 newPos = transform.localPosition + velocity * Time.fixedDeltaTime;
-        if (!AllowedArea.Contains(new Vector2(newPos.x, newPos.z)))
-        {
-            if (newPos.x < AllowedArea.xMin)
-            {
-                newPos.x = AllowedArea.xMin;
-                velocity.x = -velocity.x * Bounciness;
-            }
-            else if (newPos.x > AllowedArea.xMax)
-            {
-                newPos.x = AllowedArea.xMax;
-                velocity.x = -velocity.x * Bounciness;
-            }
+        body.velocity = velocity;
+    }
 
-            if (newPos.z < AllowedArea.yMin)
-            {
-                newPos.z = AllowedArea.yMin;
-                velocity.z = -velocity.z * Bounciness;
-            }
-            else if (newPos.z > AllowedArea.yMax)
-            {
-                newPos.z = AllowedArea.yMax;
-                velocity.z = -velocity.z * Bounciness;
-            }
+    void OnCollisionStay(Collision other)
+    {
+        onGround = true;
+    }
+
+    private void EvaluateCollision(Collision collision)
+    {
+    }
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed && onGround)
+        {
+            var jumpForce = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+            body.velocity = body.velocity += new Vector3(0f, jumpForce, 0f);
         }
-        transform.localPosition = newPos;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -53,7 +54,7 @@ public class SphereMovement : MonoBehaviour
         {
             var read = context.ReadValue<Vector2>();
             acceleration = new Vector3(read.x, 0f, read.y);
-            acceleration = Vector3.ClampMagnitude(acceleration, 1f) * MaxSpeed;
+            acceleration = Vector3.ClampMagnitude(acceleration, 1f) * maxSpeed;
         }
         
         if(context.canceled)
