@@ -7,26 +7,35 @@ using UnityEngine.InputSystem;
 public class SphereMovement : MonoBehaviour
 {
     [SerializeField, Range(0f, 100f)] private float maxSpeed = 10f;
-    [SerializeField, Range(0f, 100f)] private float maxAcceleration = 10f;
+    [SerializeField, Range(0f, 100f)] private float maxAcceleration = 10f, maxAirAcceleration = 1f;
     [SerializeField, Range(0f, 10f)] private float jumpHeight = 2f;
     [SerializeField, Range(0, 5)] private int maxAirJumps = 0;
+    [SerializeField, Range(0f, 90f)] private float maxGroundAngle = 25f;
 
     private Vector3 velocity;
     private Vector3 acceleration;
     private Rigidbody body;
     private bool onGround;
     private int jumpPhase = 0;
+    private float minGroundDotProduct;
 
-    private void Awake()
+    void OnValidate()
+    {
+        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
+    }
+
+    void Awake()
     {
         body = GetComponent<Rigidbody>();
+        OnValidate();
     }
 
     void FixedUpdate()
     {
         updateState();
+        float realAcceleration = onGround ? maxAcceleration : maxAirAcceleration;
         onGround = false;
-        float maxSpeedChange = maxAcceleration * Time.fixedDeltaTime;
+        float maxSpeedChange = realAcceleration * Time.fixedDeltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, acceleration.x, maxSpeedChange);
         velocity.z = Mathf.MoveTowards(velocity.z, acceleration.z, maxSpeedChange);
         body.velocity = velocity;
@@ -54,7 +63,7 @@ public class SphereMovement : MonoBehaviour
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
-            onGround |= normal.y >= 0.9f;
+            onGround |= normal.y >= minGroundDotProduct;
         }
     }
 
@@ -63,8 +72,10 @@ public class SphereMovement : MonoBehaviour
         if (context.performed && (onGround || jumpPhase < maxAirJumps))
         {
             jumpPhase += 1;
-            var jumpForce = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
-            body.velocity = body.velocity += new Vector3(0f, jumpForce, 0f);
+            float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+            if(velocity.y > 0f)
+                jumpSpeed = Mathf.Max(jumpSpeed - velocity.y, 0f);
+            body.velocity += new Vector3(0f, jumpSpeed, 0f);
         }
     }
 
