@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3343953913403212367}
   - component: {fileID: 3343953913403212364}
   - component: {fileID: 3343953913403212365}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,6 +284,11 @@ MonoBehaviour:
   jumpHeight: 2
   maxAirJumps: 0
   maxGroundAngle: 45
+  maxSnapSpeed: 100
+  probeDistance: 1
+  probeMask:
+    serializedVersion: 2
+    m_Bits: 307
 --- !u!54 &3343953913403212365
 Rigidbody:
   m_ObjectHideFlags: 0

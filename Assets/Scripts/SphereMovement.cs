@@ -11,6 +11,9 @@ public class SphereMovement : MonoBehaviour
     [SerializeField, Range(0f, 10f)] private float jumpHeight = 2f;
     [SerializeField, Range(0, 5)] private int maxAirJumps = 0;
     [SerializeField, Range(0f, 90f)] private float maxGroundAngle = 25f;
+    [SerializeField, Range(0f, 100f)] private float maxSnapSpeed = 100f;
+    [SerializeField, Min(0f)] private float probeDistance = 1f;
+    [SerializeField] private LayerMask probeMask = -1;
 
     private Vector3 velocity;
     private Vector3 acceleration;
@@ -19,6 +22,7 @@ public class SphereMovement : MonoBehaviour
     private float minGroundDotProduct;
     private Vector3 contactNormal;
     private int groundContactCount = 0;
+    private int stepsSinceLastGrounded = 0, stepsSinceLastJump = 0;
 
     public bool OnGround => groundContactCount > 0;
 
@@ -41,6 +45,11 @@ public class SphereMovement : MonoBehaviour
         clearState();
     }
 
+    void Update()
+    {
+        GetComponent<Renderer>().material.SetColor("_BaseColor", OnGround ? Color.black : Color.white);
+    }
+
     private void clearState()
     {
         groundContactCount = 0;
@@ -49,9 +58,14 @@ public class SphereMovement : MonoBehaviour
 
     private void updateState()
     {
+        stepsSinceLastGrounded += 1;
+        stepsSinceLastJump += 1;
         velocity = body.velocity;
-        if (OnGround)
+        if (OnGround || snapToGround())
+        {
+            stepsSinceLastGrounded = 0;
             jumpPhase = 0;
+        }
     }
 
     void OnCollisionEnter(Collision other)
@@ -64,12 +78,31 @@ public class SphereMovement : MonoBehaviour
         evaluateCollision(other);
     }
 
+    private bool snapToGround()
+    {
+        if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 3)
+            return false;
+        float speed = velocity.magnitude;
+        if (speed > maxSnapSpeed)
+            return false;
+        if (!Physics.Raycast(body.position, Vector3.down, out RaycastHit hit, probeDistance, probeMask))
+            return false;
+        if (hit.normal.y < minGroundDotProduct)
+            return false;
+        groundContactCount = 1;
+        contactNormal = hit.normal;
+        float dot = Vector3.Dot(velocity, hit.normal);
+        if(dot > 0f)
+            velocity = (velocity - hit.normal * dot).normalized * speed;
+        return true;
+    }
+
     private void evaluateCollision(Collision collision)
     {
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
-            if(normal.y >= minGroundDotProduct)
+            if (normal.y >= minGroundDotProduct)
             {
                 groundContactCount += 1;
                 contactNormal += normal;
@@ -104,6 +137,7 @@ public class SphereMovement : MonoBehaviour
     {
         if (context.performed && (OnGround || jumpPhase < maxAirJumps))
         {
+            stepsSinceLastJump = 0;
             jumpPhase += 1;
             float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
             float alignedSpeed = Vector3.Dot(velocity, contactNormal);
