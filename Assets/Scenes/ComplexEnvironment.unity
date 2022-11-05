@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -354,6 +354,31 @@ PrefabInstance:
     - target: {fileID: 3343953913403212361, guid: 5b1584e4bde3aa64c83697e965f81c37,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2970,8 +2995,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
         type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
       propertyPath: maxSnapSpeed
-      value: 100
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
         type: 3}
@@ -4829,6 +4874,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1584e4bde3aa64c83697e965f81c37, type: 3}
@@ -4906,6 +4976,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1584e4bde3aa64c83697e965f81c37, type: 3}
@@ -4981,6 +5076,31 @@ PrefabInstance:
     - target: {fileID: 3343953913403212361, guid: 5b1584e4bde3aa64c83697e965f81c37,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -5225,6 +5345,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1584e4bde3aa64c83697e965f81c37, type: 3}
@@ -5302,6 +5447,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1584e4bde3aa64c83697e965f81c37, type: 3}
@@ -5377,6 +5547,31 @@ PrefabInstance:
     - target: {fileID: 3343953913403212361, guid: 5b1584e4bde3aa64c83697e965f81c37,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7483,6 +7678,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1584e4bde3aa64c83697e965f81c37, type: 3}
@@ -8022,6 +8242,31 @@ PrefabInstance:
     - target: {fileID: 3343953913403212361, guid: 5b1584e4bde3aa64c83697e965f81c37,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxAirJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxSnapSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: probeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxGroundAngle
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: maxStairsAngle
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -10,11 +10,14 @@ public class SphereMovement : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float maxAcceleration = 10f, maxAirAcceleration = 1f;
     [SerializeField, Range(0f, 10f)] private float jumpHeight = 2f;
     [SerializeField, Range(0, 5)] private int maxAirJumps = 0;
+    [SerializeField] private Vector3 jumpBias = Vector3.up;
     [SerializeField, Range(0f, 90f)] private float maxGroundAngle = 25f, maxStairsAngle = 50f;
     [SerializeField, Range(0f, 100f)] private float maxSnapSpeed = 100f;
     [SerializeField, Min(0f)] private float probeDistance = 1f;
     [SerializeField] private LayerMask probeMask = -1, stairsMask = -1;
 
+    private static readonly int baseColor = Shader.PropertyToID("_BaseColor");
+    
     private Vector3 velocity;
     private Vector3 acceleration;
     private Rigidbody body;
@@ -49,7 +52,7 @@ public class SphereMovement : MonoBehaviour
 
     void Update()
     {
-        GetComponent<Renderer>().material.SetColor("_BaseColor", OnGround ? Color.black : Color.white);
+        GetComponent<Renderer>().material.SetColor(baseColor, OnGround ? Color.black : Color.white);
     }
 
     void OnCollisionEnter(Collision other)
@@ -71,8 +74,6 @@ public class SphereMovement : MonoBehaviour
     {
         groundContactCount = 0;
         steepContactCount = 0;
-        contactNormal = Vector3.zero;
-        steepNormal = Vector3.zero;
     }
 
     private void updateState()
@@ -83,7 +84,8 @@ public class SphereMovement : MonoBehaviour
         if (OnGround || snapToGround() || checkSteepContacts())
         {
             stepsSinceLastGrounded = 0;
-            jumpPhase = 0;
+            if (stepsSinceLastJump > 1)
+                jumpPhase = 0;
         }
     }
 
@@ -116,8 +118,7 @@ public class SphereMovement : MonoBehaviour
             {
                 groundContactCount += 1;
                 contactNormal += normal;
-                if(groundContactCount > 1)
-                    contactNormal.Normalize();
+                contactNormal.Normalize();
             }
             else if (normal.y > -0.01f) // 90degree wall is 0f, but we allow some error
             {
@@ -165,15 +166,33 @@ public class SphereMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && (OnGround || jumpPhase < maxAirJumps || checkSteepContacts()))
+        if (context.performed)
         {
+            Vector3 jumpDirection;
+            if (OnGround)
+                jumpDirection = contactNormal;
+            else if (OnSteep)
+            {
+                jumpDirection = steepNormal.normalized;
+                jumpPhase = 0;
+            }
+            else if (maxAirJumps > 0 && jumpPhase <= maxAirJumps)
+            {
+                if (jumpPhase == 0)
+                    jumpPhase = 1;
+                jumpDirection = contactNormal;
+            }
+            else
+                return;
+            
             stepsSinceLastJump = 0;
             jumpPhase += 1;
             float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
-            float alignedSpeed = Vector3.Dot(velocity, contactNormal);
+            jumpDirection = (jumpDirection + jumpBias).normalized;
+            float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
             if(alignedSpeed > 0f)
                 jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
-            body.velocity += contactNormal * jumpSpeed;
+            body.velocity += jumpDirection * jumpSpeed;
         }
     }
 
