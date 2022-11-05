@@ -20,11 +20,12 @@ public class SphereMovement : MonoBehaviour
     private Rigidbody body;
     private int jumpPhase = 0;
     private float minGroundDotProduct, minStairsDotProduct;
-    private Vector3 contactNormal;
-    private int groundContactCount = 0;
+    private Vector3 contactNormal, steepNormal;
+    private int groundContactCount = 0, steepContactCount = 0;
     private int stepsSinceLastGrounded = 0, stepsSinceLastJump = 0;
 
     public bool OnGround => groundContactCount > 0;
+    public bool OnSteep => steepContactCount > 0;
 
     void OnValidate()
     {
@@ -69,7 +70,9 @@ public class SphereMovement : MonoBehaviour
     private void clearState()
     {
         groundContactCount = 0;
+        steepContactCount = 0;
         contactNormal = Vector3.zero;
+        steepNormal = Vector3.zero;
     }
 
     private void updateState()
@@ -77,7 +80,7 @@ public class SphereMovement : MonoBehaviour
         stepsSinceLastGrounded += 1;
         stepsSinceLastJump += 1;
         velocity = body.velocity;
-        if (OnGround || snapToGround())
+        if (OnGround || snapToGround() || checkSteepContacts())
         {
             stepsSinceLastGrounded = 0;
             jumpPhase = 0;
@@ -116,7 +119,27 @@ public class SphereMovement : MonoBehaviour
                 if(groundContactCount > 1)
                     contactNormal.Normalize();
             }
+            else if (normal.y > -0.01f) // 90degree wall is 0f, but we allow some error
+            {
+                steepContactCount += 1;
+                steepNormal += normal;
+            }
         }
+    }
+
+    private bool checkSteepContacts()
+    {
+        if (steepContactCount > 1)
+        {
+            steepNormal.Normalize();
+            if (steepNormal.y >= minGroundDotProduct)
+            {
+                groundContactCount = 1;
+                contactNormal = steepNormal;
+                return true;
+            }
+        }
+        return false;
     }
 
     private void adjustVelocity()
@@ -142,7 +165,7 @@ public class SphereMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed && (OnGround || jumpPhase < maxAirJumps))
+        if (context.performed && (OnGround || jumpPhase < maxAirJumps || checkSteepContacts()))
         {
             stepsSinceLastJump = 0;
             jumpPhase += 1;
