@@ -22,6 +22,8 @@ A project showing solutions to various physics issues.
   * Camera collisions (BoxCast) with masking
   
 ## Gallery
+![obraz](https://user-images.githubusercontent.com/107229318/200931711-e21f8f75-8c08-4c11-a95d-8b234c0e5858.png)
+![obraz](https://user-images.githubusercontent.com/107229318/200931763-e0bd7ecb-ccb5-45ff-8916-734f7200171d.png)
 ![obraz](https://user-images.githubusercontent.com/107229318/200930349-9587d29d-78a2-4821-96e8-75b03df435df.png)
 ![obraz](https://user-images.githubusercontent.com/107229318/200930571-ee9477eb-9a97-4237-ab52-f1da44a025cb.png)
 ![obraz](https://user-images.githubusercontent.com/107229318/200930702-40465f25-ce61-467c-891a-cb4c116bbbbd.png)
