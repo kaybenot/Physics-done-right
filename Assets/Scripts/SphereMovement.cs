@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class SphereMovement : MonoBehaviour
 {
+    [SerializeField] private Transform playerInputSpace;
     [SerializeField, Range(0f, 100f)] private float maxSpeed = 10f;
     [SerializeField, Range(0f, 100f)] private float maxAcceleration = 10f, maxAirAcceleration = 1f;
     [SerializeField, Range(0f, 10f)] private float jumpHeight = 2f;
@@ -153,10 +154,18 @@ public class SphereMovement : MonoBehaviour
 
         float realAcceleration = OnGround ? maxAcceleration : maxAirAcceleration;
         float maxSpeedChange = realAcceleration * Time.fixedDeltaTime;
-        float newX = Mathf.MoveTowards(currentX, acceleration.x, maxSpeedChange);
-        float newZ = Mathf.MoveTowards(currentZ, acceleration.z, maxSpeedChange);
+        Vector3 desiredAcceleration = playerInputSpace ? convertToPlayerInputSpace() : acceleration * maxSpeed;
+        float newX = Mathf.MoveTowards(currentX, desiredAcceleration.x, maxSpeedChange);
+        float newZ = Mathf.MoveTowards(currentZ, desiredAcceleration.z, maxSpeedChange);
 
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
+    }
+
+    private Vector3 convertToPlayerInputSpace()
+    {
+        Vector3 direction = playerInputSpace.forward * acceleration.z + playerInputSpace.right * acceleration.x;
+        direction.Normalize();
+        return direction * maxSpeed;
     }
 
     private Vector3 projectOnContactPlane(Vector3 vector)
@@ -202,7 +211,7 @@ public class SphereMovement : MonoBehaviour
         {
             var read = context.ReadValue<Vector2>();
             acceleration = new Vector3(read.x, 0f, read.y);
-            acceleration = Vector3.ClampMagnitude(acceleration, 1f) * maxSpeed;
+            acceleration = Vector3.ClampMagnitude(acceleration, 1f);
         }
         
         if(context.canceled)

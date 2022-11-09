@@ -802,6 +802,11 @@ PrefabInstance:
       propertyPath: maxAcceleration
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 3343953913403212364, guid: 5b1584e4bde3aa64c83697e965f81c37,
+        type: 3}
+      propertyPath: playerInputSpace
+      value: 
+      objectReference: {fileID: 1706432102}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1584e4bde3aa64c83697e965f81c37, type: 3}
